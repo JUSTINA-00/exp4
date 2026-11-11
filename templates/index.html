@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Personalized Recommendation System</title>
+    <style>
+        body { font-family: Arial; max-width: 760px; margin: 35px auto; padding: 15px; }
+        input, select, textarea { width: 100%; padding: 9px; margin: 6px 0 14px; box-sizing: border-box; }
+        button { padding: 10px 16px; cursor: pointer; }
+        .card { background: #f2f2f2; padding: 14px; margin: 12px 0; border-radius: 6px; }
+        .message { color: green; }
+    </style>
+</head>
+<body>
+    <h2>Personalized Recommendation System</h2>
+
+    <form method="POST">
+        <label>Educational / Field Background</label>
+        <input name="background" placeholder="Example: Computer Science">
+
+        <label>Interests</label>
+        <input name="interests" required placeholder="Example: AI, Python, Java">
+
+        <label>Skill Level</label>
+        <select name="skill">
+            <option>Beginner</option>
+            <option>Intermediate</option>
+            <option>Advanced</option>
+        </select>
+
+        <label>Preferred Category</label>
+        <select name="category">
+            <option>Practical</option>
+            <option>Theoretical</option>
+            <option>Both</option>
+        </select>
+
+        <label>Learning Goal</label>
+        <input name="goal" placeholder="Example: Build AI projects">
+
+        <label>Learning Preferences</label>
+        <input name="preferences" placeholder="Example: Hands-on learning">
+
+        <button type="submit">Get Recommendations</button>
+    </form>
+
+    {% if message %}
+        <p class="message">{{ message }}</p>
+    {% endif %}
+
+    {% if recommendations %}
+        <h3>Top 5 Recommendations</h3>
+        {% for item in recommendations %}
+            <div class="card">
+                <h3>{{ loop.index }}. {{ item.title }}</h3>
+                <p>{{ item.description }}</p>
+                <p><b>Why recommended:</b> {{ item.reason }}</p>
+            </div>
+        {% endfor %}
+
+        <h3>Give Feedback</h3>
+        <form action="/feedback" method="POST">
+            <input name="feedback" placeholder="Example: I want more Python projects">
+            <button type="submit">Submit Feedback</button>
+        </form>
+    {% endif %}
+</body>
+</html>
